@@ -67,6 +67,8 @@ int main ( int argc, char** argv )
 
     Player thePlayer;
     Enemy theEnemy;
+    time_t oldSeconds;
+    time_t seconds;
 
     // centre the bitmap on screen
     SDL_Rect dstrect;
@@ -115,38 +117,37 @@ int main ( int argc, char** argv )
         enemyRect.x = theEnemy.x*80;
         enemyRect.y = theEnemy.y*80;
 
+        SDL_Rect playerProjectileRect;
+
         // draw bitmap
-        std::cout << "loop" << std::endl;
-        std::cout << thePlayer.direction << std::endl;
         switch(thePlayer.direction){
             case 0:
-            SDL_BlitSurface(playerUp, 0, screen, &playerRect);
-            std::cout << "direction 0" << std::endl;
+                SDL_BlitSurface(playerUp, 0, screen, &playerRect);
             break;
             case 1:
-            SDL_BlitSurface(playerRight, 0, screen, &playerRect);
+                SDL_BlitSurface(playerRight, 0, screen, &playerRect);
             break;
             case 2:
-            SDL_BlitSurface(playerDown, 0, screen, &playerRect);
+                SDL_BlitSurface(playerDown, 0, screen, &playerRect);
             break;
             case 3:
-            SDL_BlitSurface(playerLeft, 0, screen, &playerRect);
+                SDL_BlitSurface(playerLeft, 0, screen, &playerRect);
             break;
         }
 
 
         switch(theEnemy.direction){
             case 0:
-            SDL_BlitSurface(enemyUp, 0, screen, &enemyRect);
+                SDL_BlitSurface(enemyUp, 0, screen, &enemyRect);
             break;
             case 1:
-            SDL_BlitSurface(enemyRight, 0, screen, &enemyRect);
+                SDL_BlitSurface(enemyRight, 0, screen, &enemyRect);
             break;
             case 2:
-            SDL_BlitSurface(enemyDown, 0, screen, &enemyRect);
+                SDL_BlitSurface(enemyDown, 0, screen, &enemyRect);
             break;
             case 3:
-            SDL_BlitSurface(enemyLeft, 0, screen, &enemyRect);
+                SDL_BlitSurface(enemyLeft, 0, screen, &enemyRect);
             break;
         }
 
@@ -160,23 +161,21 @@ int main ( int argc, char** argv )
                     switch( event.key.keysym.sym ){
                         case SDLK_LEFT:
                             if (gameState == 1){thePlayer.moveLeft();gameState = 2;}
-                            break;
+                        break;
                         case SDLK_RIGHT:
                             if (gameState == 1){thePlayer.moveRight();gameState = 2;}
-                            break;
+                        break;
                         case SDLK_UP:
                             if (gameState == 1){thePlayer.moveUp();gameState = 2;}
-                            break;
+                        break;
                         case SDLK_DOWN:
                             if (gameState == 1){thePlayer.moveDown();gameState = 2;}
-                            break;
+                        break;
                         default:
                             break;
                     }
             }
         }
-
-        if (gameState == 2){thePlayer.attackPlayer();}
 
         if (gameState == 3){theEnemy.moveEnemy();}
 
