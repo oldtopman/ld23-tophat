@@ -1,8 +1,11 @@
 # depslib dependency file v1.0
-1335031411 source:/home/ian/src/codeblocks/ld23-tinyworld/enemy.cpp
+1335061263 source:/home/ian/src/codeblocks/ld23-tinyworld/enemy.cpp
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
 	"enemy.h"
 
-1335055231 source:/home/ian/src/codeblocks/ld23-tinyworld/main.cpp
+1335062361 source:/home/ian/src/codeblocks/ld23-tinyworld/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<SDL/SDL.h>
@@ -191,7 +194,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1335054441 /home/ian/src/codeblocks/ld23-tinyworld/enemy.h
+1335061843 /home/ian/src/codeblocks/ld23-tinyworld/enemy.h
 
 1335051384 /home/ian/src/codeblocks/ld23-tinyworld/player.h
 	<cstdlib>

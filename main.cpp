@@ -117,7 +117,7 @@ int main ( int argc, char** argv )
         enemyRect.x = theEnemy.x*80;
         enemyRect.y = theEnemy.y*80;
 
-        SDL_Rect playerProjectileRect;
+        int hasMoved;
 
         // draw bitmap
         switch(thePlayer.direction){
@@ -178,7 +178,7 @@ int main ( int argc, char** argv )
         }
 
         if (gameState == 2){
-            gameState = 1;
+            gameState = 3;
                 switch(thePlayer.direction){
                 case 0:
                     if (theEnemy.x == thePlayer.x && thePlayer.y - 1 == theEnemy.y){
@@ -209,9 +209,51 @@ int main ( int argc, char** argv )
             }
         }
 
-        if (gameState == 3){theEnemy.moveEnemy();}
+        if (gameState == 3 && hasMoved == 2){
+            srand (time(NULL));
+            theEnemy.movementDirection = rand() % 4;
+            theEnemy.secondMovementDirection = rand() % 4;
+            gameState = 4;
+            hasMoved = 0;
 
-        if (gameState == 4){theEnemy.attackEnemy();}
+            switch(theEnemy.movementDirection){
+                case 0:
+                    if (!(theEnemy.y == (thePlayer.y - 1) && theEnemy.x == thePlayer.x) && theEnemy.y > 0){theEnemy.y--;}
+                break;
+                case 1:
+                    if (!(theEnemy.x == (thePlayer.x + 1) && theEnemy.y == thePlayer.y) && theEnemy.x < 7){theEnemy.x++;}
+                break;
+                case 2:
+                    if (!(theEnemy.y == (thePlayer.y + 1) && theEnemy.x == thePlayer.x) && theEnemy.y < 7){theEnemy.y++;}
+                break;
+                case 3:
+                    if (!(theEnemy.x == (thePlayer.x - 1) && theEnemy.y == thePlayer.y) && theEnemy.x > 0){theEnemy.x--;}
+                break;
+            }
+
+            switch(theEnemy.secondMovementDirection){
+                case 0:
+                    if (!(theEnemy.y == (thePlayer.y - 1) && theEnemy.x == thePlayer.x) && theEnemy.y > 0){theEnemy.y--;}
+                break;
+                case 1:
+                    if (!(theEnemy.x == (thePlayer.x + 1) && theEnemy.y == thePlayer.y) && theEnemy.x < 7){theEnemy.x++;}
+                break;
+                case 2:
+                    if (!(theEnemy.y == (thePlayer.y + 1) && theEnemy.x == thePlayer.x) && theEnemy.y < 7){theEnemy.y++;}
+                break;
+                case 3:
+                    if (!(theEnemy.x == (thePlayer.x - 1) && theEnemy.y == thePlayer.y) && theEnemy.x > 0){theEnemy.x--;}
+                break;
+            }
+        }else{
+            if(gameState == 3){
+                gameState++;
+                hasMoved++;
+            }
+        }
+
+        if (gameState == 4){gameState = 1;}
+        std::cout << gameState << std::endl;
 
         // DRAWING ENDS HERE
 

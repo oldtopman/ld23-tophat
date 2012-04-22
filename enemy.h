@@ -4,7 +4,8 @@
 class Enemy{
     private:
     public:
-
+    int movementDirection;
+    int secondMovementDirection;
     int x;
     int y;
     int health;
