@@ -19,6 +19,7 @@ class Enemy{
         x = 4;
         y = 4;
         direction = 0;
+        health = 2;
     }
 
 };

@@ -24,6 +24,7 @@ class Player{
         x = 0;
         y = 0;
         direction = 0;
+        health = 3;
     }
 
 };

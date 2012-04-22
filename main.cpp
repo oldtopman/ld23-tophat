@@ -14,7 +14,7 @@
 #include "enemy.h"
 #include "player.h"
 
-extern int gameState = 1; // 0= init 1= playermove 2=playerattack 3=enemymove 4=enemyattack
+extern int gameState = 0; // 0= init 1= playermove 2=playerattack 3=enemymove 4=enemyattack
 Mix_Music *theMusic = NULL;
 
 
@@ -63,6 +63,12 @@ int main ( int argc, char** argv )
     Mix_PlayMusic(theMusic, -1);
 
     // load an image
+    SDL_Surface* beginScreen = SDL_LoadBMP("intro.bmp");
+    SDL_Surface* winScreen = SDL_LoadBMP("winscreen.bmp");
+
+    SDL_Surface* health1 = SDL_LoadBMP("1.bmp");
+    SDL_Surface* health2 = SDL_LoadBMP("2.bmp");
+    SDL_Surface* health3 = SDL_LoadBMP("3.bmp");
 
     SDL_Surface* playerUp = SDL_LoadBMP("playerup.bmp");
     SDL_Surface* playerDown = SDL_LoadBMP("playerdown.bmp");
@@ -140,6 +146,22 @@ int main ( int argc, char** argv )
         enemyRect.x = theEnemy.x*80;
         enemyRect.y = theEnemy.y*80;
 
+        SDL_Rect enemyHealthRect;
+        enemyHealthRect.y = enemyRect.y + 2;
+        enemyHealthRect.x = enemyRect.x + 2;
+
+        SDL_Rect playerHealthRect;
+        playerHealthRect.y = playerRect.y + 2;
+        playerHealthRect.x = playerRect.x + 2;
+
+        SDL_Rect winRect;
+        winRect.y = 0;
+        winRect.x = 0;
+
+        SDL_Rect beginRect;
+        beginRect.x = 0;
+        beginRect.y = 0;
+
         int hasMoved;
 
         // draw bitmap
@@ -205,26 +227,22 @@ int main ( int argc, char** argv )
                 switch(thePlayer.direction){
                 case 0:
                     if (theEnemy.x == thePlayer.x && thePlayer.y - 1 == theEnemy.y){
-                        std::cout << "WIN!" << std::endl;
-                        exit(0);
+                        theEnemy.health--;
                     }
                 break;
                 case 1:
                     if (theEnemy.y == thePlayer.y && thePlayer.x + 1 == theEnemy.x){
-                        std::cout << "WIN!" << std::endl;
-                        exit(0);
+                        theEnemy.health--;
                     }
                 break;
                 case 2:
                     if (theEnemy.x == thePlayer.x && thePlayer.y + 1 == theEnemy.y){
-                        std::cout << "WIN!" << std::endl;
-                        exit(0);
+                        theEnemy.health--;
                     }
                 break;
                 case 3:
                     if (theEnemy.y == thePlayer.y && thePlayer.x - 1 == theEnemy.x){
-                        std::cout << "WIN!" << std::endl;
-                        exit(0);
+                        theEnemy.health--;
                     }
                 break;
                 default:
@@ -278,24 +296,72 @@ int main ( int argc, char** argv )
 
         if (gameState == 4){
             gameState = 1;
-
-            switch(theEnemy.direction){
-                case 0:
-                break;
-                case 1:
-                    SDL_BlitSurface(enemyRight, 0, screen, &enemyRect);
-                break;
-                case 2:
-                    SDL_BlitSurface(enemyDown, 0, screen, &enemyRect);
-                break;
-                case 3:
-                    SDL_BlitSurface(enemyLeft, 0, screen, &enemyRect);
-                break;
-            }
+            //damage calc goes here
         }
 
-        std::cout << gameState << std::endl;
+        if (theEnemy.health == 0){gameState = 5;}
 
+        std::cout << "gamestate = " << gameState << std::endl;
+
+        switch(thePlayer.health){
+            case 3:
+                SDL_BlitSurface(health3, 0, screen, &playerHealthRect);
+            break;
+            case 2:
+                SDL_BlitSurface(health2, 0, screen, &playerHealthRect);
+            break;
+            case 1:
+                SDL_BlitSurface(health1, 0, screen, &playerHealthRect);
+            break;
+        }
+
+        switch(theEnemy.health){
+            case 3:
+                SDL_BlitSurface(health3, 0, screen, &enemyHealthRect);
+            break;
+            case 2:
+                SDL_BlitSurface(health2, 0, screen, &enemyHealthRect);
+            break;
+            case 1:
+                SDL_BlitSurface(health1, 0, screen, &enemyHealthRect);
+            break;
+        }
+
+
+        if (gameState == 5){
+            SDL_BlitSurface(winScreen, 0, screen, &winRect);
+        }
+
+        while (gameState == 0){
+            while( SDL_PollEvent( &event ) ){
+                std::cout << "pollingforbegin" << std::endl;
+                switch( event.type ){
+                    /* Look for a keypress */
+                    case SDL_KEYDOWN:
+                        /* Check the SDLKey values and move change the coords */
+                        switch( event.key.keysym.sym ){
+                            case SDLK_LEFT:
+                                gameState = 1;
+                            break;
+                            case SDLK_RIGHT:
+                                gameState = 1;
+                            break;
+                            case SDLK_UP:
+                                gameState = 1;
+                            break;
+                            case SDLK_DOWN:
+                                gameState = 1;
+                            break;
+                            default:
+                            break;
+                        }
+                }
+            }
+        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+        SDL_BlitSurface(beginScreen, 0, screen, &winRect);
+        SDL_Flip(screen);
+        std::cout << "waitingforstart" << std::endl;
+        }
         // DRAWING ENDS HERE
 
         // finally, update the screen :)
@@ -317,6 +383,9 @@ int main ( int argc, char** argv )
     SDL_FreeSurface(playerProjectileLeft);
     SDL_FreeSurface(playerProjectileRight);
     SDL_FreeSurface(enemyFlame);
+    SDL_FreeSurface(health3);
+    SDL_FreeSurface(health2);
+    SDL_FreeSurface(health1);
 
 
     // all is well :)
