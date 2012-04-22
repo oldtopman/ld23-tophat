@@ -284,6 +284,7 @@ int main ( int argc, char** argv )
 
             switch(theEnemy.direction){
                 case 0:
+                    theLava.x[]
                 break;
                 case 1:
                     SDL_BlitSurface(enemyRight, 0, screen, &enemyRect);

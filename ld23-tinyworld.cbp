@@ -34,7 +34,7 @@
 		</Compiler>
 		<Linker>
 			<Add option="`sdl-config --libs`" />
-			<Add library="sdl_mixer" />
+			<Add library="SDL_mixer" />
 		</Linker>
 		<Unit filename="background.bmp" />
 		<Unit filename="enemy.cpp" />
@@ -44,6 +44,8 @@
 		<Unit filename="enemyleft.bmp" />
 		<Unit filename="enemyright.bmp" />
 		<Unit filename="enemyup.bmp" />
+		<Unit filename="lava.cpp" />
+		<Unit filename="lava.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
