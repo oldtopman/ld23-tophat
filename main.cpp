@@ -13,6 +13,7 @@
 #include <iostream>
 #include "enemy.h"
 #include "player.h"
+#include "lava.h"
 
 extern int gameState = 1; // 0= init 1= playermove 2=playerattack 3=enemymove 4=enemyattack
 Mix_Music *theMusic = NULL;
@@ -235,6 +236,7 @@ int main ( int argc, char** argv )
             srand (time(NULL));
             theEnemy.movementDirection = rand() % 4;
             theEnemy.secondMovementDirection = rand() % 4;
+            theEnemy.direction = theEnemy.secondMovementDirection;
             gameState = 4;
             hasMoved = 0;
 
@@ -274,7 +276,26 @@ int main ( int argc, char** argv )
             }
         }
 
-        if (gameState == 4){gameState = 1;}
+        if (gameState == 4){
+            gameState++;
+
+            switch(theEnemy.direction){
+                case 0:
+                    SDL_BlitSurface(enemyUp, 0, screen, &enemyRect);
+                break;
+                case 1:
+                    SDL_BlitSurface(enemyRight, 0, screen, &enemyRect);
+                break;
+                case 2:
+                    SDL_BlitSurface(enemyDown, 0, screen, &enemyRect);
+                break;
+                case 3:
+                    SDL_BlitSurface(enemyLeft, 0, screen, &enemyRect);
+                break;
+            }
+
+        }
+
         std::cout << gameState << std::endl;
 
         // DRAWING ENDS HERE
