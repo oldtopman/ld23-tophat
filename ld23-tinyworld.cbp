@@ -44,8 +44,6 @@
 		<Unit filename="enemyleft.bmp" />
 		<Unit filename="enemyright.bmp" />
 		<Unit filename="enemyup.bmp" />
-		<Unit filename="lava.cpp" />
-		<Unit filename="lava.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />

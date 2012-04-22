@@ -63,6 +63,7 @@ int main ( int argc, char** argv )
     Mix_PlayMusic(theMusic, -1);
 
     // load an image
+    SDL_Surface* loseScreen = SDL_LoadBMP("losescreen.bmp");
     SDL_Surface* beginScreen = SDL_LoadBMP("intro.bmp");
     SDL_Surface* winScreen = SDL_LoadBMP("winscreen.bmp");
 
@@ -196,9 +197,9 @@ int main ( int argc, char** argv )
             break;
         }
 
-        std::cout << "notpolling" << std::endl;
+        //std::cout << "notpolling" << std::endl;
         while( SDL_PollEvent( &event ) ){
-            std::cout << "polling" << std::endl;
+            //std::cout << "polling" << std::endl;
             switch( event.type ){
                 /* Look for a keypress */
                 case SDL_KEYDOWN:
@@ -255,6 +256,9 @@ int main ( int argc, char** argv )
             theEnemy.movementDirection = rand() % 4;
             theEnemy.secondMovementDirection = rand() % 4;
             theEnemy.direction = theEnemy.secondMovementDirection;
+
+            if (abs(thePlayer.y - theEnemy.y) < 2 && abs(thePlayer.x - theEnemy.x) < 2){thePlayer.health--;}
+
             gameState = 4;
             hasMoved = 0;
 
@@ -299,9 +303,9 @@ int main ( int argc, char** argv )
             //damage calc goes here
         }
 
-        if (theEnemy.health == 0){gameState = 5;}
+        if (theEnemy.health <= 0){gameState = 5;}
 
-        std::cout << "gamestate = " << gameState << std::endl;
+        //std::cout << "gamestate = " << gameState << std::endl;
 
         switch(thePlayer.health){
             case 3:
@@ -332,9 +336,41 @@ int main ( int argc, char** argv )
             SDL_BlitSurface(winScreen, 0, screen, &winRect);
         }
 
+        if (thePlayer.health <= 0){
+            while(true){
+                while( SDL_PollEvent( &event ) ){
+                    //std::cout << "pollingforbegin" << std::endl;
+                    switch( event.type ){
+                        /* Look for a keypress */
+                        case SDL_KEYDOWN:
+                            /* Check the SDLKey values and move change the coords */
+                            switch( event.key.keysym.sym ){
+                                case SDLK_LEFT:
+                                    exit(0);
+                                break;
+                                case SDLK_RIGHT:
+                                    exit(0);
+                                break;
+                                case SDLK_UP:
+                                    exit(0);
+                                break;
+                                case SDLK_DOWN:
+                                    exit(0);
+                                break;
+                                default:
+                                break;
+                            }
+                    }
+                }
+                SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+                SDL_BlitSurface(loseScreen, 0, screen, &winRect);
+                SDL_Flip(screen);
+            }
+        }
+
         while (gameState == 0){
             while( SDL_PollEvent( &event ) ){
-                std::cout << "pollingforbegin" << std::endl;
+                //std::cout << "pollingforbegin" << std::endl;
                 switch( event.type ){
                     /* Look for a keypress */
                     case SDL_KEYDOWN:
@@ -360,7 +396,7 @@ int main ( int argc, char** argv )
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
         SDL_BlitSurface(beginScreen, 0, screen, &winRect);
         SDL_Flip(screen);
-        std::cout << "waitingforstart" << std::endl;
+        //std::cout << "waitingforstart" << std::endl;
         }
         // DRAWING ENDS HERE
 
