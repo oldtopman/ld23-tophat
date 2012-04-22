@@ -15,8 +15,8 @@ class Enemy{
     void attackEnemy();
 
     Enemy(){
-        x = 7;
-        y = 7;
+        x = 4;
+        y = 4;
         direction = 0;
     }
 

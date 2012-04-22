@@ -151,29 +151,61 @@ int main ( int argc, char** argv )
             break;
         }
 
-
-
+        std::cout << "notpolling" << std::endl;
         while( SDL_PollEvent( &event ) ){
+            std::cout << "polling" << std::endl;
             switch( event.type ){
                 /* Look for a keypress */
                 case SDL_KEYDOWN:
                     /* Check the SDLKey values and move change the coords */
                     switch( event.key.keysym.sym ){
                         case SDLK_LEFT:
-                            if (gameState == 1){thePlayer.moveLeft();gameState = 2;}
+                            if (gameState == 1 && !(theEnemy.x == (thePlayer.x - 1) && theEnemy.y == thePlayer.y)){thePlayer.moveLeft();gameState = 2;}
                         break;
                         case SDLK_RIGHT:
-                            if (gameState == 1){thePlayer.moveRight();gameState = 2;}
+                            if (gameState == 1 && !(theEnemy.x == (thePlayer.x + 1) && theEnemy.y == thePlayer.y)){thePlayer.moveRight();gameState = 2;}
                         break;
                         case SDLK_UP:
-                            if (gameState == 1){thePlayer.moveUp();gameState = 2;}
+                            if (gameState == 1 && !(theEnemy.y == (thePlayer.y - 1) && theEnemy.x == thePlayer.x)){thePlayer.moveUp();gameState = 2;}
                         break;
                         case SDLK_DOWN:
-                            if (gameState == 1){thePlayer.moveDown();gameState = 2;}
+                            if (gameState == 1 && !(theEnemy.y == (thePlayer.y + 1) && theEnemy.x == thePlayer.x)){thePlayer.moveDown();gameState = 2;}
                         break;
                         default:
-                            break;
+                        break;
                     }
+            }
+        }
+
+        if (gameState == 2){
+            gameState = 1;
+                switch(thePlayer.direction){
+                case 0:
+                    if (theEnemy.x == thePlayer.x && thePlayer.y - 1 == theEnemy.y){
+                        std::cout << "WIN!" << std::endl;
+                        exit(0);
+                    }
+                break;
+                case 1:
+                    if (theEnemy.y == thePlayer.y && thePlayer.x + 1 == theEnemy.x){
+                        std::cout << "WIN!" << std::endl;
+                        exit(0);
+                    }
+                break;
+                case 2:
+                    if (theEnemy.x == thePlayer.x && thePlayer.y + 1 == theEnemy.y){
+                        std::cout << "WIN!" << std::endl;
+                        exit(0);
+                    }
+                break;
+                case 3:
+                    if (theEnemy.y == thePlayer.y && thePlayer.x - 1 == theEnemy.x){
+                        std::cout << "WIN!" << std::endl;
+                        exit(0);
+                    }
+                break;
+                default:
+                break;
             }
         }
 

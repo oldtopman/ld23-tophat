@@ -2,7 +2,7 @@
 1335031411 source:/home/ian/src/codeblocks/ld23-tinyworld/enemy.cpp
 	"enemy.h"
 
-1335032607 source:/home/ian/src/codeblocks/ld23-tinyworld/main.cpp
+1335055231 source:/home/ian/src/codeblocks/ld23-tinyworld/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<SDL/SDL.h>
@@ -191,12 +191,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1335032092 /home/ian/src/codeblocks/ld23-tinyworld/enemy.h
+1335054441 /home/ian/src/codeblocks/ld23-tinyworld/enemy.h
 
-1335032101 /home/ian/src/codeblocks/ld23-tinyworld/player.h
+1335051384 /home/ian/src/codeblocks/ld23-tinyworld/player.h
 	<cstdlib>
 	<stdlib.h>
 
-1335037964 source:/home/ian/src/codeblocks/ld23-tinyworld/player.cpp
+1335051608 source:/home/ian/src/codeblocks/ld23-tinyworld/player.cpp
 	"player.h"
 
