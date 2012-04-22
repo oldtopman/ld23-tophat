@@ -64,8 +64,6 @@ int main ( int argc, char** argv )
     Mix_PlayMusic(theMusic, -1);
 
     // load an image
-    int lavaNumber = 0;
-    Lava theLava[63];
 
     SDL_Surface* playerUp = SDL_LoadBMP("playerup.bmp");
     SDL_Surface* playerDown = SDL_LoadBMP("playerdown.bmp");
@@ -279,12 +277,11 @@ int main ( int argc, char** argv )
             }
         }
 
-        if (gameState == 4 && lavaNumber < 64){
-            gameState++;
+        if (gameState == 4){
+            gameState = 1;
 
             switch(theEnemy.direction){
                 case 0:
-                    theLava.x[]
                 break;
                 case 1:
                     SDL_BlitSurface(enemyRight, 0, screen, &enemyRect);
