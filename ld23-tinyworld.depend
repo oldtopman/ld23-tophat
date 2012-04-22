@@ -5,11 +5,12 @@
 	<time.h>
 	"enemy.h"
 
-1335062361 source:/home/ian/src/codeblocks/ld23-tinyworld/main.cpp
+1335069243 source:/home/ian/src/codeblocks/ld23-tinyworld/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<SDL/SDL.h>
 	<SDL.h>
+	<SDL_mixer.h>
 	<iostream>
 	"enemy.h"
 	"player.h"
@@ -202,4 +203,16 @@
 
 1335051608 source:/home/ian/src/codeblocks/ld23-tinyworld/player.cpp
 	"player.h"
+
+1303709338 /usr/include/SDL/SDL_mixer.h
+	"SDL_types.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303709322 /usr/include/SDL/SDL_types.h
+	"SDL_stdinc.h"
 

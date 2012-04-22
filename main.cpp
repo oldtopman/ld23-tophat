@@ -9,22 +9,42 @@
 #include <SDL.h>
 #endif
 
+#include <SDL_mixer.h>
 #include <iostream>
 #include "enemy.h"
 #include "player.h"
 
 extern int gameState = 1; // 0= init 1= playermove 2=playerattack 3=enemymove 4=enemyattack
-
+Mix_Music *theMusic = NULL;
 
 
 int main ( int argc, char** argv )
 {
+
+    /* We're going to be requesting certain things from our audio
+        device, so we set them up beforehand */
+    int audio_rate = 22050;
+    Uint16 audio_format = AUDIO_S16; /* 16-bit stereo */
+    int audio_channels = 2;
+    int audio_buffers = 4096;
+
+
     // initialize SDL video
+    if (SDL_Init(SDL_INIT_AUDIO) < 0){
+        printf( "Unable to init SDL_mixer: %s\n", SDL_GetError() );
+    }
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         printf( "Unable to init SDL: %s\n", SDL_GetError() );
         return 1;
     }
+
+    if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers)) {
+        printf("Unable to open audio!\n");
+        exit(1);
+    }
+
+    Mix_QuerySpec(&audio_rate, &audio_format, &audio_channels);
 
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
@@ -37,6 +57,10 @@ int main ( int argc, char** argv )
         printf("Unable to set 640x480 video: %s\n", SDL_GetError());
         return 1;
     }
+
+
+    theMusic = Mix_LoadMUS("music.it");
+    Mix_PlayMusic(theMusic, -1);
 
     // load an image
     SDL_Surface* playerUp = SDL_LoadBMP("playerup.bmp");
@@ -67,8 +91,6 @@ int main ( int argc, char** argv )
 
     Player thePlayer;
     Enemy theEnemy;
-    time_t oldSeconds;
-    time_t seconds;
 
     // centre the bitmap on screen
     SDL_Rect dstrect;
