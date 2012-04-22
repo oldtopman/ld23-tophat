@@ -13,7 +13,6 @@
 #include <iostream>
 #include "enemy.h"
 #include "player.h"
-#include "lava.h"
 
 extern int gameState = 1; // 0= init 1= playermove 2=playerattack 3=enemymove 4=enemyattack
 Mix_Music *theMusic = NULL;
