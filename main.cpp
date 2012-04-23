@@ -22,7 +22,7 @@ int main ( int argc, char** argv )
 {
 
     /* We're going to be requesting certain things from our audio
-        device, so we set them up beforehand */
+device, so we set them up beforehand */
     int audio_rate = 22050;
     Uint16 audio_format = AUDIO_S16; /* 16-bit stereo */
     int audio_channels = 2;
@@ -251,7 +251,7 @@ int main ( int argc, char** argv )
             }
         }
 
-        if (gameState == 3 && hasMoved == 2){
+        if (gameState == 3 && hasMoved >= 2){
             srand (time(NULL));
             theEnemy.movementDirection = rand() % 4;
             theEnemy.secondMovementDirection = rand() % 4;

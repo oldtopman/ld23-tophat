@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="enemy.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="102" topLine="0" />
 	</File>
@@ -8,7 +8,7 @@
 		<Cursor position="225" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="9679" topLine="262" />
+		<Cursor position="8135" topLine="240" />
 	</File>
 	<File name="player.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="308" topLine="0" />
